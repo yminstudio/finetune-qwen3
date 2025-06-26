@@ -293,9 +293,9 @@ outputs/{MODEL_BASE_NAME}_merged/
 
 #### **예상 결과**
 ```
-✅ GGUF 모델: outputs/{MODEL_BASE_NAME}-korean-q4_k_m.gguf
+✅ GGUF 모델: outputs/{MODEL_BASE_NAME}-finetune-q4_k_m.gguf
 ✅ 용량: 4B(2.4GB), 8B(4.8GB), 14B(8.5GB), 32B(19GB)
-✅ Ollama 등록: {model_name}-korean
+✅ Ollama 등록: {model_name}-finetune
 ✅ 속도 개선: 12-15 토큰/초 (60-75배 개선)
 ✅ 품질 유지: 파인튜닝 효과 100% 보존
 ```
@@ -326,7 +326,7 @@ outputs/{MODEL_BASE_NAME}_merged/
 ✅ QLoRA 학습: 30분 완료 (15.6GB VRAM 사용)
 ✅ 어댑터 병합: 45분 완료 (24GB RAM 사용)
 ✅ GGUF 변환: 1시간 완료 (4.8GB GGUF 생성)
-✅ Ollama 등록: 성공 (qwen3-korean-8b:latest)
+✅ Ollama 등록: 성공 (qwen3-finetune-8b:latest)
 ✅ API 서비스: 12-15 토큰/초 성능
 
 🚀 최종 API 엔드포인트:
@@ -431,7 +431,7 @@ python step6_optimize_deployment.py
 #### **3. 서비스 시작**
 ```bash
 # Ollama 모델 실행
-ollama run qwen3-korean-8b
+ollama run qwen3-finetune-8b
 
 # API 서버 시작
 python api_server.py
@@ -453,7 +453,7 @@ curl -X POST http://localhost:8000/chat \
 # Ollama 직접 호출
 curl -X POST http://localhost:11434/api/generate \
   -H "Content-Type: application/json" \
-  -d '{"model": "qwen3-korean-8b", "prompt": "안녕하세요!", "stream": false}'
+  -d '{"model": "qwen3-finetune-8b", "prompt": "안녕하세요!", "stream": false}'
 ```
 
 ### **총 소요 시간**
