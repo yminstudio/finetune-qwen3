@@ -187,21 +187,3 @@ python3 step1_setup_environment.py
 
 MIT License
 
-## 🤝 기여하기
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📞 지원
-
-- **이슈**: GitHub Issues
-- **문서**: [Wiki](링크)
-- **예제**: `examples/` 폴더 참조
-
----
-
-**⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!** # finetune-qwen3
-# finetune-qwen3
