@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 가상환경
+venv/
+env/
+ENV/
+
+# 모델 파일들 (용량이 큰 파일들)
+outputs/
+models/*.gguf
+models/*.safetensors
+models/*.bin
+models/*.pt
+cache/
+unsloth_compiled_cache/
+
+# 로그 파일들
+logs/
+*.log
+pipeline_output.log
+
+# 임시 파일들
+*.tmp
+*.temp
+.DS_Store
+.vscode/
+.idea/
+
+# 학습 데이터 (개인정보 포함 가능성)
+data/*.json
+data/*.csv
+data/*.txt
+
+# 하지만 샘플/예제 데이터는 포함
+!data/sample_*.json
+!data/README.md
+!data/.gitkeep
+
+# Hugging Face 캐시
+.cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# 환경 변수
+.env
+.env.local 

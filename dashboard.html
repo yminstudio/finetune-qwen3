@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Qwen3 Korean Model Monitoring</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 10px 0; }
+        .status-ok { color: green; }
+        .status-error { color: red; }
+        .metric { display: inline-block; margin: 10px; padding: 10px; border-radius: 4px; background: #f5f5f5; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        #chat-container { height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+        .chat-message { margin: 10px 0; }
+        .user-message { text-align: right; color: blue; }
+        .bot-message { text-align: left; color: green; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Qwen3 Korean Model Dashboard</h1>
+        
+        <div class="card">
+            <h2>서비스 상태</h2>
+            <div id="service-status">Loading...</div>
+            <button onclick="checkStatus()">상태 새로고침</button>
+        </div>
+        
+        <div class="card">
+            <h2>성능 메트릭</h2>
+            <div id="performance-metrics">
+                <div class="metric">응답 시간: <span id="response-time">-</span></div>
+                <div class="metric">처리량: <span id="throughput">-</span></div>
+                <div class="metric">메모리 사용량: <span id="memory-usage">-</span></div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>테스트 채팅</h2>
+            <div id="chat-container"></div>
+            <input type="text" id="chat-input" placeholder="메시지를 입력하세요..." style="width: 70%;">
+            <button onclick="sendMessage()">전송</button>
+        </div>
+    </div>
+
+    <script>
+        async function checkStatus() {
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                document.getElementById('service-status').innerHTML = 
+                    '<span class="status-ok">✅ 서비스 정상</span>';
+            } catch (error) {
+                document.getElementById('service-status').innerHTML = 
+                    '<span class="status-error">❌ 서비스 오류</span>';
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const chatContainer = document.getElementById('chat-container');
+            
+            // 사용자 메시지 표시
+            chatContainer.innerHTML += `<div class="chat-message user-message">👤 ${message}</div>`;
+            input.value = '';
+            
+            // 봇 응답 로딩
+            chatContainer.innerHTML += `<div class="chat-message bot-message">🤖 생각 중...</div>`;
+            
+            try {
+                const startTime = Date.now();
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: message})
+                });
+                
+                const data = await response.json();
+                const endTime = Date.now();
+                
+                // 로딩 메시지 제거 후 실제 응답 표시
+                const messages = chatContainer.querySelectorAll('.chat-message');
+                messages[messages.length - 1].innerHTML = 
+                    `🤖 ${data.response} <small>(${(endTime - startTime)}ms)</small>`;
+                
+                // 성능 메트릭 업데이트
+                document.getElementById('response-time').textContent = `${data.processing_time.toFixed(1)}초`;
+                
+            } catch (error) {
+                const messages = chatContainer.querySelectorAll('.chat-message');
+                messages[messages.length - 1].innerHTML = '🤖 ❌ 오류 발생';
+            }
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Enter 키로 메시지 전송
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // 페이지 로드 시 상태 확인
+        checkStatus();
+        setInterval(checkStatus, 30000); // 30초마다 상태 확인
+    </script>
+</body>
+</html>

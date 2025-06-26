@@ -1,0 +1,16 @@
+FROM /data/finetune/qwen3/models/Qwen3-14B-finetune-q4_k_m.gguf
+
+TEMPLATE """<|im_start|>system
+{{ .System }}<|im_end|>
+<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+"""
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
+PARAMETER num_ctx 4096
+PARAMETER num_keep 24
+
+SYSTEM """당신은 한국어 기술 전문가 AI입니다. 파이썬, 머신러닝, 웹개발, Docker, Git 등의 기술적 질문에 정확하고 실용적인 답변을 제공합니다."""

@@ -1,0 +1,1 @@
+FROM /data/finetune/qwen3/models/qwen3-4b-finetune-q4_k_m.gguf

@@ -1,0 +1,38 @@
+# Core ML Libraries
+torch>=2.6.0
+transformers>=4.47.0
+accelerate>=0.34.0
+datasets>=3.1.0
+tokenizers>=0.20.0
+
+# QLora & PEFT
+peft>=0.14.0
+bitsandbytes>=0.44.0
+unsloth>=2024.12.15
+
+# Model Format Conversion
+gguf>=0.10.0
+sentencepiece>=0.2.0
+protobuf>=5.28.0
+
+# API & Serving
+fastapi>=0.115.0
+uvicorn>=0.32.0
+ollama>=0.4.1
+
+# Utilities
+numpy>=1.26.0
+pandas>=2.2.0
+tqdm>=4.66.0
+psutil>=6.1.0
+GPUtil>=1.4.0
+
+# Development
+jupyter>=1.1.0
+ipywidgets>=8.1.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+
+# Optional: for advanced monitoring
+wandb>=0.18.0
+tensorboard>=2.18.0 
